@@ -19,6 +19,6 @@ cc_library {
     ],
     header_libs: [
         "generated_kernel_headers",
-        "motofingerprint_headers",
+        "libudfpshandler_headers",
     ],
 }
