@@ -4,25 +4,31 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-cc_library {
-    name: "libudfpshandler_moto",
-    vendor: true,
-    cflags: select(soong_config_variable("moto_udfps", "screen_wake_delay"), {
-        any @ flag_val: ["-DSCREEN_WAKE_DELAY=" + flag_val],
-        default: ["-DSCREEN_WAKE_DELAY=200"],
-    }),
-    srcs: ["UdfpsHandlerMoto.cpp"],
+cc_defaults {
+    name: "libudfpshandler_moto_defaults",
     shared_libs: [
-        "com.motorola.hardware.biometric.fingerprint@1.0",
         "libbase",
-        "libhidlbase",
         "libutils",
-    ],
-    static_libs: [
-        "android.hardware.biometrics.fingerprint-V4-ndk",
     ],
     header_libs: [
         "generated_kernel_headers",
         "libudfpshandler_headers",
     ],
+    vendor: true,
+}
+
+cc_library {
+    name: "libudfpshandler_moto",
+    defaults: ["libudfpshandler_moto_defaults"],
+    srcs: ["UdfpsHandlerMoto.cpp"],
+    shared_libs: [
+        "libhidlbase",
+        "com.motorola.hardware.biometric.fingerprint@1.0",
+    ],
+}
+
+cc_library {
+    name: "libudfpshandler_moto_hbm",
+    defaults: ["libudfpshandler_moto_defaults"],
+    srcs: ["UdfpsHandlerMotoHbm.cpp"],
 }
