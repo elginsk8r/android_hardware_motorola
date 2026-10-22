@@ -5,6 +5,8 @@
 
 package com.motorola.internal.enterprise
 
+import android.util.Log
+
 /**
  * Placeholder for Motorola's enterprise manager. MotoFaceUnlockArcSoft casts the result of
  * getSystemService() to this type and only calls hasUserRestriction(); stock framework.jar does not
@@ -16,5 +18,10 @@ package com.motorola.internal.enterprise
  * emit a kotlin.jvm.internal.Intrinsics null-check, which would need kotlin-stdlib at runtime.
  */
 open class MotoDevicePolicyManager {
-    @Suppress("UNUSED_PARAMETER") open fun hasUserRestriction(restriction: String?): Boolean = false
+    private val TAG = "MotoDevicePolicyManager"
+
+    open fun hasUserRestriction(restriction: String?): Boolean {
+        Log.w(TAG, "$restriction called, returning false")
+        return false
+    }
 }
